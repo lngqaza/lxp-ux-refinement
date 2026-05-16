@@ -1,0 +1,219 @@
+/* ─────────────────────────────────────────────────────────────
+   LXP Reframe — design language matched to the existing Sanlam LXP.
+   The concept is what's changing, not the look.
+   ───────────────────────────────────────────────────────────── */
+
+:root {
+  --bg:        #F6F8FA;
+  --paper:     #FFFFFF;
+  --ink:       #0F2540;
+  --ink-2:     #4F5D72;
+  --ink-3:     #6B7A8C;
+  --ink-4:     #93A1B4;
+  --rule:      #E6EAF0;
+  --rule-soft: #F1F4F9;
+
+  --blue:        #1D4ED8;
+  --blue-deep:   #0B3D91;
+  --blue-2:      #1E70E0;
+  --blue-soft:   #EAF1FD;
+  --blue-soft-2: #DBE9FF;
+
+  --amber:      #D97706;
+  --amber-soft: #FEF3E2;
+  --green:      #047857;
+  --green-soft: #DCFCE7;
+  --red:        #DC2626;
+  --red-soft:   #FEE2E2;
+
+  --sans: -apple-system, 'Segoe UI', system-ui, sans-serif;
+  --mono: ui-monospace, 'SF Mono', Menlo, monospace;
+
+  --r-card: 14px;
+  --r-input: 10px;
+  --shadow-card: 0 1px 2px rgba(15,37,64,0.05);
+  --shadow-card-hi: 0 2px 6px rgba(15,37,64,0.06), 0 1px 2px rgba(15,37,64,0.04);
+}
+
+/* tone variants (kept subtle — same design language) */
+.tone-default {}
+.tone-quiet {
+  --bg: #FBFCFD;
+  --blue: #2563EB;
+}
+.tone-dense {
+  --bg: #F1F4F9;
+}
+
+/* ──────────  base / scoped reset  ────────── */
+.lxp { font-family: var(--sans); color: var(--ink); background: var(--bg); -webkit-font-smoothing: antialiased; }
+.lxp *, .lxp *::before, .lxp *::after { box-sizing: border-box; }
+.lxp h1, .lxp h2, .lxp h3, .lxp h4, .lxp p { margin: 0; }
+.lxp button { font-family: inherit; cursor: pointer; }
+.lxp ::selection { background: var(--blue-soft-2); color: var(--ink); }
+
+/* ──────────  shell  ────────── */
+.shell {
+  display: grid;
+  grid-template-columns: 232px 1fr;
+  height: 100%;
+  background: var(--bg);
+}
+
+.sb {
+  background: var(--paper);
+  border-right: 1px solid var(--rule);
+  padding: 18px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.sb .brand { display: flex; align-items: center; gap: 10px; }
+.sb .brand img { width: 30px; height: 30px; }
+.sb .brand .wm b { font-size: 16px; font-weight: 700; color: var(--ink); line-height: 1; display: block; }
+.sb .brand .wm small { display: block; font-size: 11px; color: var(--ink-3); margin-top: 3px; }
+.sb .search { display: flex; align-items: center; gap: 8px; padding: 8px 10px; background: var(--bg); border-radius: var(--r-input); color: var(--ink-4); font-size: 12.5px; }
+.sb .group { display: flex; flex-direction: column; gap: 2px; }
+.sb .group h6 { font-size: 10.5px; color: var(--ink-4); font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; margin: 0 0 8px 6px; }
+.sb a { display: flex; align-items: center; gap: 10px; padding: 9px 10px; border-radius: 8px; color: var(--ink-2); text-decoration: none; font-size: 13.5px; }
+.sb a .ic { width: 16px; height: 16px; border-radius: 3px; background: var(--rule); display: inline-block; flex-shrink: 0; }
+.sb a:hover { background: var(--bg); }
+.sb a.on { background: var(--blue-soft); color: var(--ink); font-weight: 600; }
+.sb a.on .ic { background: var(--blue); }
+.sb a .pill { margin-left: auto; font-size: 9.5px; padding: 2px 5px; border-radius: 3px; font-weight: 700; letter-spacing: 0.04em; background: var(--rule-soft); color: var(--ink-3); }
+.sb a .pill.live { background: #FFE3D6; color: #C2410C; }
+.sb a .pill.vr { background: var(--blue-soft-2); color: var(--blue); }
+
+/* topbar */
+.main { display: flex; flex-direction: column; min-width: 0; }
+.topbar { display: flex; align-items: center; padding: 16px 28px; gap: 14px; }
+.crumb { font-size: 13px; color: var(--ink-3); }
+.crumb .sep { margin: 0 6px; color: var(--ink-4); }
+.crumb .now { color: var(--ink); font-weight: 600; }
+.topbar .spacer { flex: 1; }
+.topbar .search-box { background: var(--paper); border-radius: var(--r-input); padding: 7px 12px; font-size: 12px; color: var(--ink-4); display: flex; gap: 8px; align-items: center; width: 220px; box-shadow: var(--shadow-card); }
+.topbar .bell { width: 30px; height: 30px; border-radius: 50%; background: var(--paper); display: grid; place-items: center; position: relative; font-size: 14px; box-shadow: var(--shadow-card); }
+.topbar .bell::after { content: '2'; position: absolute; top: -2px; right: -2px; background: var(--red); color: white; font-size: 9px; font-weight: 700; padding: 1px 4px; border-radius: 8px; }
+.topbar .av { width: 30px; height: 30px; border-radius: 50%; background: var(--blue); color: white; display: grid; place-items: center; font-size: 11px; font-weight: 700; letter-spacing: 0.04em; }
+.topbar .role { font-size: 10.5px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-3); font-weight: 600; padding: 5px 10px; background: var(--paper); border-radius: var(--r-input); box-shadow: var(--shadow-card); }
+
+/* page body */
+.page { padding: 0 28px 28px; display: flex; flex-direction: column; gap: 18px; min-height: 0; }
+
+/* hero card */
+.hero {
+  background: linear-gradient(135deg, var(--blue-deep) 0%, #1457C9 60%, var(--blue-2) 100%);
+  color: white;
+  border-radius: var(--r-card);
+  padding: 26px 30px;
+  position: relative;
+  overflow: hidden;
+}
+.hero::after {
+  content: ''; position: absolute; right: -100px; top: -100px;
+  width: 280px; height: 280px; border-radius: 50%;
+  background: rgba(255,255,255,0.06);
+}
+.hero::before {
+  content: ''; position: absolute; right: 80px; bottom: -120px;
+  width: 200px; height: 200px; border-radius: 50%;
+  background: rgba(255,255,255,0.04);
+}
+.hero .lbl { font-size: 11px; letter-spacing: 0.16em; color: rgba(255,255,255,0.7); font-weight: 600; margin-bottom: 12px; text-transform: uppercase; position: relative; }
+.hero h1 { font-size: 32px; font-weight: 700; margin: 0; display: flex; align-items: center; gap: 16px; line-height: 1.1; position: relative; }
+.hero h1 .badge { width: 48px; height: 48px; border-radius: 14px; background: rgba(255,255,255,0.14); display: grid; place-items: center; font-size: 22px; flex-shrink: 0; }
+.hero blockquote { margin: 20px 0 0; padding: 10px 16px; border-left: 3px solid rgba(255,255,255,0.5); font-style: italic; font-size: 15px; color: rgba(255,255,255,0.95); position: relative; max-width: 70ch; }
+.hero .hero-actions { display: flex; gap: 10px; margin-top: 22px; position: relative; }
+.hero .hero-actions .btn { background: rgba(255,255,255,0.14); color: white; border: 1px solid rgba(255,255,255,0.2); }
+.hero .hero-actions .btn:hover { background: rgba(255,255,255,0.22); }
+.hero .hero-actions .btn.ghost { background: transparent; }
+
+/* card */
+.card {
+  background: var(--paper);
+  border-radius: var(--r-card);
+  box-shadow: var(--shadow-card);
+  padding: 22px 24px;
+}
+.card.tight { padding: 18px 20px; }
+.card.flat { box-shadow: none; border: 1px solid var(--rule); }
+
+/* quadrant header / eyebrow */
+.eyebrow {
+  font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--ink-3);
+}
+.eyebrow.amber  { color: var(--amber); }
+.eyebrow.blue   { color: var(--blue); }
+.eyebrow.green  { color: var(--green); }
+.eyebrow.red    { color: var(--red); }
+
+.h-quad { font-size: 19px; font-weight: 700; color: var(--ink); margin: 4px 0 14px; }
+.h-section { font-size: 22px; font-weight: 700; color: var(--ink); letter-spacing: -0.01em; }
+.h-card { font-size: 14.5px; font-weight: 600; color: var(--ink); }
+
+.body { font-size: 13.5px; line-height: 1.55; color: var(--ink-2); }
+.meta { font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.04em; color: var(--ink-3); }
+.meta-caps { font-size: 10.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-3); font-weight: 600; }
+
+/* dotted list a la "Triggers" */
+.dot-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px; }
+.dot-list li { font-size: 14px; color: var(--ink); display: flex; gap: 12px; align-items: baseline; line-height: 1.45; }
+.dot-list li::before { content: ''; width: 7px; height: 7px; border-radius: 50%; background: var(--amber); flex-shrink: 0; margin-top: 6px; }
+.dot-list.blue li::before { background: var(--blue); }
+.dot-list.green li::before { background: var(--green); }
+
+/* quote list a la "Conversations" */
+.quote-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px; }
+.quote-list li { font-size: 14px; font-style: italic; color: var(--ink); padding-left: 14px; border-left: 2px solid var(--blue-soft-2); line-height: 1.45; }
+
+/* checkbox list */
+.check-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 12px; }
+.check-list li { font-size: 14px; color: var(--ink); display: flex; gap: 10px; align-items: center; }
+.check-list li::before { content: ''; width: 16px; height: 16px; border: 1.5px solid var(--ink-4); border-radius: 4px; flex-shrink: 0; }
+.check-list li.on::before { background: var(--blue); border-color: var(--blue); }
+
+/* pills (products etc.) */
+.pills { display: flex; flex-wrap: wrap; gap: 8px; }
+.pill {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 12.5px; padding: 7px 13px;
+  background: var(--blue-soft);
+  color: var(--blue);
+  border-radius: 999px;
+  font-weight: 500;
+}
+.pill.amber { background: var(--amber-soft); color: var(--amber); }
+.pill.green { background: var(--green-soft); color: var(--green); }
+.pill.red   { background: var(--red-soft);   color: var(--red); }
+.pill.ghost { background: transparent; border: 1px solid var(--rule); color: var(--ink-2); }
+
+/* buttons */
+.btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 13px; font-weight: 600;
+  padding: 9px 14px;
+  border-radius: 10px;
+  border: 1px solid var(--blue);
+  background: var(--blue); color: white;
+  cursor: pointer;
+}
+.btn:hover { background: #1746C0; }
+.btn.ghost { background: var(--paper); color: var(--ink); border-color: var(--rule); }
+.btn.ghost:hover { border-color: var(--ink-4); }
+.btn.small { padding: 6px 10px; font-size: 12px; }
+
+/* numeric label */
+.num {
+  display: inline-grid; place-items: center;
+  width: 26px; height: 26px;
+  border-radius: 50%;
+  background: var(--blue-soft); color: var(--blue);
+  font-size: 12.5px; font-weight: 700;
+}
+
+/* product visibility */
+.lxp[data-products="off"] .product-mention { display: none !important; }
+
+/* scrollbars */
+.lxp::-webkit-scrollbar { width: 0; height: 0; }
